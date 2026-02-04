@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>TaraCommute – Weather Update</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/pages.css" />
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-left">
+      <img class="logo" src="assets/logo.jpg" alt="TaraCommute logo">
+      <div class="brand-name">TaraCommute</div>
+    </div>
+
+    <nav class="nav-center">
+      <a href="news.html" class="nav-link">News & Alert</a>
+      <a href="weather.html" class="nav-link" style="text-decoration:underline;">Weather Update</a>
+    </nav>
+
+    <div class="nav-right">
+  <a href="index.html" class="nav-link">Home</a>
+  <a href="dashboard.html" class="nav-link">Dashboard</a>
+</div>
+
+  </header>
+
+  <div class="container">
+    <h1 class="page-title">Weather Update</h1>
+    <p class="page-sub">Live weather for Metro Manila cities (no login needed).</p>
+
+    <div class="searchRow">
+      <input id="citySearch" placeholder="Search city (e.g., Quezon City, Makati, Pasig)..." />
+      <button class="nav-btn" id="refreshBtn">Refresh</button>
+    </div>
+
+    <div class="grid" id="weatherGrid"></div>
+    <div class="small" id="status">Loading…</div>
+  </div>
+
+  <script src="js/weather.js"></script>
+</body>
+</html>

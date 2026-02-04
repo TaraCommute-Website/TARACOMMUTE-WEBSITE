@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>TaraCommute – Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+  <!-- Mapbox -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+
+<body>
+  <div id="map"></div>
+
+  <div class="panel">
+    <div class="panelHeader">
+      <div>
+        <div class="title">TaraCommute – Departure Boards</div>
+        <div class="sub">Jeep • Bus • Ferry • LRT</div>
+          <div class="sub" id="userLabel" style="margin-top:6px;"></div>
+          <div class="sub" id="sessionLabel" style="margin-top:4px; opacity:.9;"></div>
+
+      </div>
+      <button id="themeToggle" class="secondary">Dark Mode</button>
+        <button id="logoutBtn" class="btnLogout">Log out</button>
+
+    </div>
+
+    <div class="tabs" id="tabs"></div>
+    <!-- 🚆 Rail Line Legend -->
+    <div class="legend" id="railLegend">
+      <span class="lrt1">● LRT-1</span>
+      <span class="lrt2">● LRT-2</span>
+      <span class="mrt">● MRT-3</span>
+    </div>
+
+
+
+    <div class="controls">
+  <input id="search" placeholder="Search (route/station/destination)..." />
+  <button id="clearSearch" class="secondary">Clear</button>
+  <button id="toggleTraffic" class="secondary">Traffic</button>
+</div>
+
+
+    <div id="boardContainer"></div>
+  </div>
+
+  <!-- ✅ Load auth FIRST -->
+  <script src="js/auth.js"></script>
+
+  <!-- ✅ Guard + Logout (ONE unified block) -->
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // 🔒 Guard
+    const auth = window.TaraAuth?.getAuth?.();
+    if (!auth || auth.loggedIn !== true) {
+      window.location.replace("index.html");
+      return;
+    }
+
+    // 👤 Show user email/name
+    const userLabel = document.getElementById("userLabel");
+    if (userLabel) {
+      const display =
+        auth.name && auth.name.trim().length
+          ? `${auth.name} (${auth.email})`
+          : auth.email;
+
+      userLabel.textContent = `Logged in as: ${display}`;
+    }
+
+    // ⏳ Session countdown (only shows if expiresAt exists)
+    const sessionLabel = document.getElementById("sessionLabel");
+
+    function fmt(ms) {
+      const total = Math.max(0, Math.floor(ms / 1000));
+      const m = String(Math.floor(total / 60)).padStart(2, "0");
+      const s = String(total % 60).padStart(2, "0");
+      return `${m}:${s}`;
+    }
+
+    function updateSessionUI() {
+      const latest = window.TaraAuth?.getAuth?.(); // re-read in case it expires
+      if (!latest) {
+        window.location.replace("index.html");
+        return;
+      }
+
+      if (sessionLabel) {
+        if (latest.expiresAt) {
+          const left = latest.expiresAt - Date.now();
+          sessionLabel.textContent =
+            left > 0 ? `Session expires in: ${fmt(left)}` : "Session expired.";
+        } else {
+          sessionLabel.textContent = ""; // hide if you don't use expiry yet
+        }
+      }
+    }
+
+    updateSessionUI();
+    const timer = setInterval(updateSessionUI, 1000);
+
+    // 🚪 Logout
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", () => {
+        clearInterval(timer);
+        window.TaraAuth.clearAuth();
+        window.location.replace("index.html");
+      });
+    }
+  });
+</script>
+
+<script>
+  (function () {
+    const STORAGE_KEY = "tara_theme";
+    const btn = document.getElementById("themeToggle");
+
+    function setTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem(STORAGE_KEY, theme);
+      if (btn) btn.textContent = theme === "dark" ? "Light Mode" : "Dark Mode";
+    }
+
+    // Load saved theme OR system preference
+    const saved = localStorage.getItem(STORAGE_KEY);
+    const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    setTheme(saved || (prefersDark ? "dark" : "light"));
+
+    // Toggle on click
+    if (btn) {
+      btn.addEventListener("click", () => {
+        const current = document.documentElement.getAttribute("data-theme") || "light";
+        setTheme(current === "dark" ? "light" : "dark");
+      });
+    }
+  })();
+</script>
+
+
+
+
+  <!-- ✅ Your existing scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/map.js"></script>
+
+  <script src="js/boards/boardBase.js"></script>
+  <script src="js/boards/jeepBoard.js"></script>
+  <script src="js/boards/busBoard.js"></script>
+  <script src="js/boards/ferryBoard.js"></script>
+  <script src="js/boards/lrtBoard.js"></script>
+  <script src="js/boards/lrt2Board.js"></script>
+  <script src="js/boards/mrtBoard.js"></script>
+  <script src="js/boards/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>TaraCommute</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="logo.jpg" type="image/x-icon"/>
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="nav">
+    <div class="nav-left">
+      <img class="logo" src="assets/logo.jpg" alt="TaraCommute logo">
+      <div class="brand-name">TaraCommute</div>
+    </div>
+
+    <nav class="nav-center">
+      <a href="news.html" class="nav-link">News & Alert</a>
+      <a href="weather.html" class="nav-link">Weather Update</a>
+    </nav>
+
+    <div class="nav-right">
+      <button class="nav-login" id="loginBtn">Login</button>
+      <button class="nav-register" id="signupBtn">Register</button>
+    </div>
+  </header>
+
+  <div class="nav-strip"></div>
+
+  <!-- CONTENT -->
+  <main class="hero">
+    <section class="hero-inner">
+      <div class="intro">
+        <div class="badge">All-in-one commuting assistant for Metro Manila</div>
+
+        <h1>TaraCommute</h1>
+        <p class="lead">
+          Plan smarter trips with routes, estimated travel time, fare ranges, and live updates.
+          Built for everyday commuters—Jeepney, Bus, Ferry, LRT & MRT in one place.
+        </p>
+
+        <div class="hero-cta">
+          <button class="btn big" id="getStartedBtn">Get Started</button>
+          <a class="btn ghost big" href="#about">Learn More</a>
+        </div>
+
+        <div class="quick-stats">
+          <div class="qs">
+            <div class="qs-num">🗺️</div>
+            <div class="qs-txt"><b>Routes & Stations</b><br><span>Jeep • Bus • Ferry • Rail</span></div>
+          </div>
+          <div class="qs">
+            <div class="qs-num">⏱️</div>
+            <div class="qs-txt"><b>ETA & Boards</b><br><span>Departure-style schedule demo</span></div>
+          </div>
+          <div class="qs">
+            <div class="qs-num">₱</div>
+            <div class="qs-txt"><b>Fare Ranges</b><br><span>Quick cost estimate per route</span></div>
+          </div>
+        </div>
+      </div>
+
+      <section id="about" class="section">
+        <h2>About TaraCommute</h2>
+        <p class="muted">
+          TaraCommute is a commuter-focused web app that combines routes, stations, fare ranges,
+          and real-time travel context—so you can decide faster and travel with confidence.
+          Instead of switching between multiple apps and pages, everything is organized in one dashboard.
+        </p>
+
+        <div class="feature-grid">
+          <article class="fcard">
+            <div class="ficon">🧭</div>
+            <h3>Route Finder</h3>
+            <p>Browse common Jeepney and Bus routes plus Ferry terminals and rail stations.</p>
+          </article>
+
+          <article class="fcard">
+            <div class="ficon">🗺️</div>
+            <h3>Interactive Map</h3>
+            <p>Visualize routes on a map with focus points and route lines (demo ready for expansion).</p>
+          </article>
+
+          <article class="fcard">
+            <div class="ficon">📰</div>
+            <h3>News & Alerts</h3>
+            <p>See transport-related updates and advisories (demo list now, API-ready later).</p>
+          </article>
+
+          <article class="fcard">
+            <div class="ficon">🌦️</div>
+            <h3>Weather Updates</h3>
+            <p>Check Metro Manila weather per city with commuter-friendly advisories.</p>
+          </article>
+
+          <article class="fcard">
+            <div class="ficon">💸</div>
+            <h3>Fare Estimates</h3>
+            <p>Quick fare ranges so you can plan your budget before you travel.</p>
+          </article>
+
+          <article class="fcard">
+            <div class="ficon">🤖</div>
+            <h3>AI Commute Buddy (Soon)</h3>
+            <p>A chatbot that helps suggest routes, tips, and alternatives when things change.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>How it works</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div>
+              <b>Check updates</b>
+              <div class="muted">See news and weather before you travel.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div>
+              <b>Login to open the dashboard</b>
+              <div class="muted">Map + departure boards + search in one place.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div>
+              <b>Choose route, see ETA & fare</b>
+              <div class="muted">Pick the best option based on your needs.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <section id="news" class="card">
+          <h3>News & Alert</h3>
+          <div class="ticker" id="newsTicker">Loading headlines…</div>
+          <div class="mini-actions">
+            <a class="mini-link" href="news.html">Open News</a>
+          </div>
+        </section>
+
+        <section id="weather" class="card">
+          <h3>Weather Update</h3>
+          <div class="weather" id="weatherPill">Loading weather…</div>
+          <div class="mini-actions">
+            <a class="mini-link" href="weather.html">Open Weather</a>
+          </div>
+        </section>
+      </section>
+
+      <section class="cta">
+        <div class="cta-box">
+          <div>
+            <h2>Ready to commute smarter?</h2>
+            <p class="muted">Create an account to unlock the dashboard and map experience.</p>
+          </div>
+          <div class="cta-actions">
+            <button class="btn big" id="signupBtn2">Create Account</button>
+            <button class="btn ghost big" id="loginBtn2">Login</button>
+          </div>
+        </div>
+      </section>
+
+    </section>
+  </main>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-backdrop" id="modalBackdrop" hidden></div>
+  <div class="modal" id="authModal" hidden>
+    <div class="modal-head">
+      <div class="modal-title" id="modalTitle">Log in</div>
+      <button class="icon-btn" id="closeModalBtn" type="button">✕</button>
+    </div>
+
+    <form class="modal-body" id="authForm">
+      <label>
+        Email
+        <input type="email" id="email" required placeholder="you@email.com" />
+      </label>
+
+      <label>
+        Password
+        <input type="password" id="password" required placeholder="••••••••" minlength="6" />
+      </label>
+
+      <div class="modal-actions">
+        <button class="btn" type="submit" id="submitAuthBtn">Continue</button>
+        <button class="btn ghost" type="button" id="switchModeBtn">Switch to Register</button>
+      </div>
+
+      <div class="hint">
+        After login/register, you will be redirected to the dashboard (map + boards).
+      </div>
+    </form>
+  </div>
+
+  <!-- ✅ Auth first -->
+  <script src="js/auth.js"></script>
+
+  <!-- ✅ Auto redirect if already logged in (prevents “logged in but still on index”) -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      window.TaraAuth?.redirectIfLoggedIn?.();
+    });
+  </script>
+
+  <!-- Landing logic -->
+  <script src="js/landing.js"></script>
+</body>
+</html>
