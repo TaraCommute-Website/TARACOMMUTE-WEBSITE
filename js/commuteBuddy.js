@@ -19,7 +19,7 @@ function openBuddy() {
 
   // 👋 Auto greeting (only once per page load)
   if (!panel.dataset.greeted) {
-    addBubble("buddy", "Hi! I’m **Commute Buddy** 🤖🌈\nAsk me about routes, traffic, fares, or commute tips.");
+    addBubble("buddy", "Hi there! 👋✨ I'm **Commute Buddy** 🤖🌈\n\nI'm here to help you navigate Metro Manila! Ask me about:\n🚍 Bus & Jeepney routes\n🚝 MRT/LRT lines\n⛴️ Ferry schedules\n💰 Fare estimates\n🚦 Traffic updates\n🗺️ Best routes\n\nWhat would you like to know? 😊");
     panel.dataset.greeted = "true";
   }
 }
@@ -53,7 +53,7 @@ sendBtn.addEventListener("click", async () => {
     addBubble("buddy", reply);
   } catch (err) {
     console.error(err);
-    addBubble("buddy", "Oops — something went wrong. (Gemini not connected yet)");
+    addBubble("buddy", "Oops! 😅 Something went wrong on my end. Could you try asking again? 🔄");
   }
 });
 
@@ -109,8 +109,12 @@ window.CommuteBuddy.gemini = async function(userText) {
             parts: [
               {
                 text:
-                  "You are Commute Buddy, a helpful assistant for Metro Manila commuters. " +
-                  "Give practical, short answers.\n\nUser: " + userText
+                  "You are Commute Buddy 🤖, a super friendly and helpful AI assistant for Metro Manila commuters! " +
+                  "Be warm, enthusiastic, and use plenty of emojis to make your responses fun and engaging. " +
+                  "Use emojis like 🚍 for buses, 🚝 for trains, ⛴️ for ferries, 🚕 for jeepneys, 🗺️ for routes, " +
+                  "💰 for fares, ⏱️ for time, 🌧️ for weather, 🚦 for traffic, ✨ for tips, and 👍 for encouragement. " +
+                  "Keep answers practical, concise, and friendly. Always start with a warm greeting emoji!\n\n" +
+                  "User: " + userText
               }
             ]
           }
