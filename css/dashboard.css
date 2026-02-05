@@ -88,14 +88,14 @@ body{ margin:0; background: var(--bg); color: var(--text); }
 .title{ font-weight:1000; font-size:18px; margin:0; letter-spacing:-0.01em; color: var(--text); }
 .sub{ color:var(--muted); font-size:12px; margin-top:4px; font-weight:650; }
 
-/* ✅ Fix theme toggle button shape */
+
 #themeToggle{
-  border-radius: 999px;          /* pill */
-  padding: 10px 14px;            /* nicer proportions */
-  white-space: nowrap;           /* prevent Light / Mode from stacking */
-  line-height: 1;                /* tighter */
-  min-height: 37px;              /* consistent height */
-  display: inline-flex;          /* keeps it centered */
+  border-radius: 999px;         
+  padding: 10px 14px;            
+  white-space: nowrap;           
+  line-height: 1;                
+  min-height: 37px;              
+  display: inline-flex;         
   align-items: center;
   justify-content: center;
 }
@@ -174,9 +174,7 @@ button.secondary:hover,
   gap:4px;
   font-weight:600;
 }
-.legend .lrt1 { color: #2563eb; }
-.legend .lrt2 { color: #9333ea; }
-.legend .mrt  { color: #facc15; }
+
 
 /* SEARCH */
 .controls{
