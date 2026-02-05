@@ -8,6 +8,10 @@
 </head>
 <body>
 
+<div class="aurora aurora--neon" aria-hidden="true"></div>
+
+
+
   <header class="nav">
     <div class="nav-left">
       <img class="logo" src="assets/logo.png" alt="TaraCommute logo">
@@ -36,30 +40,77 @@
 
   <script src="js/news.js"></script>
 
-  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-  <span id="themeIcon">🌙</span>
+  <!-- Theme Toggle (bottom-right) -->
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+  <span id="themeIcon" aria-hidden="true">🌙</span>
 </button>
 
+
 <script>
-  const root = document.documentElement;
-  const toggle = document.getElementById("themeToggle");
-  const icon = document.getElementById("themeIcon");
-  const STORAGE_KEY = "tara-theme";
+  (function () {
+    const root = document.documentElement;
+    const btn = document.getElementById("themeToggle");
+    const icon = document.getElementById("themeIcon");
+    const KEY = "tara-theme";
 
-  function applyTheme(theme){
-    root.setAttribute("data-theme", theme);
-    icon.textContent = theme === "dark" ? "☀️" : "🌙";
-  }
+    function apply(theme) {
+      root.setAttribute("data-theme", theme);
+      icon.textContent = theme === "dark" ? "☀️" : "🌙";
+    }
 
-  const saved = localStorage.getItem(STORAGE_KEY);
-  const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  applyTheme(saved || (systemDark ? "dark" : "light"));
+    // initial theme: saved or system preference
+    const saved = localStorage.getItem(KEY);
+    const systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    apply(saved || (systemDark ? "dark" : "light"));
 
-  toggle.addEventListener("click", ()=>{
-    const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    localStorage.setItem(STORAGE_KEY, next);
-    applyTheme(next);
-  });
+    btn.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme") || "light";
+      const next = current === "dark" ? "light" : "dark";
+      localStorage.setItem(KEY, next);
+      apply(next);
+    });
+  })();
+</script>
+
+
+<script>
+  (function () {
+    const root = document.documentElement;
+
+    // If user prefers reduced motion, keep static center
+    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    root.style.setProperty("--mx", "50%");
+    root.style.setProperty("--my", "50%");
+    if (reduceMotion) return;
+
+    let targetX = 50, targetY = 50;
+    let currentX = 50, currentY = 50;
+
+    // Smoothness: smaller = slower/smoother, larger = snappier
+    const ease = 0.08;
+
+    function onMove(e) {
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = (e.clientY / window.innerHeight) * 100;
+      targetX = Math.max(0, Math.min(100, x));
+      targetY = Math.max(0, Math.min(100, y));
+    }
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("touchmove", (e) => {
+      if (!e.touches || !e.touches[0]) return;
+      onMove(e.touches[0]);
+    }, { passive: true });
+
+    function loop() {
+      currentX += (targetX - currentX) * ease;
+      currentY += (targetY - currentY) * ease;
+      root.style.setProperty("--mx", currentX.toFixed(2) + "%");
+      root.style.setProperty("--my", currentY.toFixed(2) + "%");
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  })();
 </script>
 
 </body>

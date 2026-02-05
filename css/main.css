@@ -465,6 +465,214 @@ body{ margin:0; background:var(--bg); color:var(--ink); }
   box-shadow:none;
 }
 
+/* =============================
+   ✨ White + Neon Aurora Background (Smooth cursor follow)
+   Works with light & dark mode
+============================= */
+
+:root{
+  /* Mouse position set by JS */
+  --mx: 50%;
+  --my: 50%;
+
+  /* Light mode tuning */
+  --aurora-opacity: .70;
+  --aurora-blur: 42px;
+  --aurora-sat: 1.25;
+  --aurora-contrast: 1.05;
+}
+
+:root[data-theme="dark"]{
+  /* Dark mode tuning */
+  --aurora-opacity: .45;
+  --aurora-blur: 60px;
+  --aurora-sat: 1.55;
+  --aurora-contrast: 1.15;
+}
+
+body > *{
+  position: relative;
+  z-index: 1;
+}
+.aurora.aurora--neon{
+  position: fixed;
+  inset: 0;
+  z-index: 0;              /* IMPORTANT: not negative */
+  pointer-events: none;
+
+  opacity: var(--aurora-opacity);
+  filter: blur(var(--aurora-blur)) saturate(var(--aurora-sat)) contrast(var(--aurora-contrast));
+  transform: translateZ(0);
+
+  /* Slow breathing animation (still smooth even when cursor stops) */
+  animation: auroraBreathe 12s ease-in-out infinite;
+
+  background:
+    /* Bright white “spotlight” near cursor */
+    radial-gradient(520px 420px at var(--mx) var(--my),
+      rgba(255,255,255,.95) 0%,
+      rgba(255,255,255,.55) 30%,
+      rgba(255,255,255,0) 68%),
+
+    /* Neon pink */
+    radial-gradient(700px 520px at calc(var(--mx) + 18%) calc(var(--my) - 14%),
+      rgba(255, 0, 140, .75) 0%,
+      rgba(255, 0, 140, 0) 70%),
+
+    /* Neon blue */
+    radial-gradient(760px 560px at calc(var(--mx) - 22%) calc(var(--my) + 12%),
+      rgba(0, 170, 255, .70) 0%,
+      rgba(0, 170, 255, 0) 72%),
+
+    /* Neon green */
+    radial-gradient(820px 560px at 30% 76%,
+      rgba(0, 255, 170, .55) 0%,
+      rgba(0, 255, 170, 0) 72%),
+
+    /* Neon purple */
+    radial-gradient(920px 640px at 72% 22%,
+      rgba(160, 80, 255, .55) 0%,
+      rgba(160, 80, 255, 0) 74%),
+
+    /* Soft white base wash (keeps it bright + clean) */
+    linear-gradient(120deg,
+      rgba(255,255,255,.70),
+      rgba(255,255,255,.35),
+      rgba(255,255,255,.60));
+}
+
+/* Dark mode: reduce white, keep neon glow */
+:root[data-theme="dark"] .aurora.aurora--neon{
+  background:
+    radial-gradient(540px 440px at var(--mx) var(--my),
+      rgba(255,255,255,.55) 0%,
+      rgba(255,255,255,.22) 34%,
+      rgba(255,255,255,0) 70%),
+
+    radial-gradient(700px 520px at calc(var(--mx) + 18%) calc(var(--my) - 14%),
+      rgba(255, 0, 140, .55) 0%,
+      rgba(255, 0, 140, 0) 70%),
+
+    radial-gradient(760px 560px at calc(var(--mx) - 22%) calc(var(--my) + 12%),
+      rgba(0, 170, 255, .55) 0%,
+      rgba(0, 170, 255, 0) 72%),
+
+    radial-gradient(820px 560px at 30% 76%,
+      rgba(0, 255, 170, .38) 0%,
+      rgba(0, 255, 170, 0) 72%),
+
+    radial-gradient(920px 640px at 72% 22%,
+      rgba(160, 80, 255, .42) 0%,
+      rgba(160, 80, 255, 0) 74%),
+
+    /* Dark base wash */
+    linear-gradient(120deg,
+      rgba(255,255,255,.08),
+      rgba(255,255,255,.02),
+      rgba(255,255,255,.06));
+}
+
+/* Gentle “breathing” motion */
+@keyframes auroraBreathe{
+  0%   { transform: translate3d(0,0,0) scale(1.02); }
+  50%  { transform: translate3d(0,-12px,0) scale(1.03); }
+  100% { transform: translate3d(0,0,0) scale(1.02); }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce){
+  .aurora.aurora--neon{ animation: none; }
+}
+
+/* ===== Aurora Glass Navbar (recommended) ===== */
+.nav{
+  position: sticky;
+  top: 0;
+  z-index: 20;
+
+  height: 72px;
+  padding: 0 18px;
+
+  /* glass */
+  background: rgba(255,255,255,.38);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border-bottom: 1px solid rgba(15,23,42,.12);
+}
+
+/* dark mode glass */
+:root[data-theme="dark"] .nav{
+  background: rgba(15,23,42,.45);
+  border-bottom: 1px solid rgba(148,163,184,.18);
+}
+
+/* make links readable on glass */
+.nav-link{
+  color: var(--ink);
+  opacity: .92;
+}
+.nav-link:hover{
+  background: rgba(255,255,255,.55);
+}
+
+/* dark mode link colors */
+:root[data-theme="dark"] .nav-link{
+  color: var(--ink);
+}
+:root[data-theme="dark"] .nav-link:hover{
+  background: rgba(255,255,255,.10);
+}
+
+/* brand text */
+.brand-name{ color: var(--ink); }
+
+/* login button on glass */
+.nav-login{
+  color: var(--ink);
+}
+.nav-login:hover{
+  background: rgba(255,255,255,.55);
+}
+:root[data-theme="dark"] .nav-login:hover{
+  background: rgba(255,255,255,.10);
+}
+
+/* register becomes neon gradient pill (matches hero glow) */
+.nav-register{
+  background: linear-gradient(90deg, #ff2bd6, #7c3aed, #1e90ff, #22c55e);
+  background-size: 300% 300%;
+  animation: cbRainbow 10s ease infinite;
+  border: 0;
+  box-shadow: 0 12px 28px rgba(0,0,0,.18);
+}
+
+/* ===== FORCE navbar links to be visible on light backgrounds ===== */
+header.nav .nav-link,
+header.nav .brand-name,
+header.nav .nav-login{
+  color:#000 !important;
+}
+
+/* hover */
+header.nav .nav-link:hover,
+header.nav .nav-login:hover{
+  background: rgba(0,0,0,.08) !important;
+}
+
+/* dark mode keeps them white */
+:root[data-theme="dark"] header.nav .nav-link,
+:root[data-theme="dark"] header.nav .brand-name,
+:root[data-theme="dark"] header.nav .nav-login{
+  color:#fff !important;
+}
+
+:root[data-theme="dark"] header.nav .nav-link:hover,
+:root[data-theme="dark"] header.nav .nav-login:hover{
+  background: rgba(255,255,255,.12) !important;
+}
+
+
 
 
 
