@@ -25,7 +25,9 @@ body{ margin:0; background:var(--bg); color:var(--ink); }
   border-bottom: 1px solid rgba(255,255,255,.12);
 }
 .nav-left{ display:flex; align-items:center; gap:10px; }
-.logo{ width:44px; height:44px; border-radius:12px; object-fit:cover; background:#fff; border:2px solid rgba(255,255,255,.22); }
+.logo{ width:44px; height:44px; 
+  border-radius:12px; 
+  object-fit:cover; }
 .brand-name{ font-weight:1000; font-size:19px; }
 
 .nav-center{ display:flex; gap:16px; align-items:center; }
@@ -181,7 +183,7 @@ body{ margin:0; background:var(--bg); color:var(--ink); }
   border-bottom: 1px solid rgba(255,255,255,.12);
 }
 .nav-left{ display:flex; align-items:center; gap:10px; }
-.logo{ width:44px; height:44px; border-radius:12px; object-fit:cover; background:#fff; border:2px solid rgba(255,255,255,.22); }
+.logo{ width:44px; height:44px; border-radius:12px; object-fit:cover; }
 .brand-name{ font-weight:1000; font-size:19px; }
 
 .nav-center{ display:flex; gap:16px; align-items:center; }

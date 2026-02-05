@@ -9,15 +9,34 @@
   --shadow2: 0 10px 24px rgba(2,6,23,.08);
   --radius:18px;
 }
+/* =============================
+   🌈 Animated Rainbow Navbar
+   ============================= */
+@keyframes cbRainbow{
+  0%{ background-position:0% 50%; }
+  50%{ background-position:100% 50%; }
+  100%{ background-position:0% 50%; }
+}
+
+/* Add this variable inside your existing :root{} (recommended),
+   OR paste this block anywhere (it will still work). */
+:root{
+  --cbRainbow: linear-gradient(90deg,#ff004c,#ff7a00,#ffd400,#33d17a,#1e90ff,#7c3aed,#ff3bd4);
+}
 
 *{ box-sizing:border-box; font-family: system-ui, -apple-system, Segoe UI, Arial, sans-serif; }
 body{ margin:0; background:var(--bg); color:var(--ink); }
 
 /* NAVBAR */
 .nav{
-  position:sticky; top:0; z-index:10;
+  position:relative; 
+  top:0; z-index:10;
   height:72px;
-  background:var(--brand);
+
+  background: var(--cbRainbow);
+  background-size: 400% 400%;
+  animation: cbRainbow 12s ease infinite;
+
   color:#fff;
   display:flex;
   align-items:center;
@@ -25,6 +44,7 @@ body{ margin:0; background:var(--bg); color:var(--ink); }
   padding:0 18px;
   border-bottom: 1px solid rgba(255,255,255,.12);
 }
+
 .nav-left{ display:flex; align-items:center; gap:10px; }
 .logo{
   width:44px; height:44px;
@@ -69,10 +89,6 @@ body{ margin:0; background:var(--bg); color:var(--ink); }
 .nav-register:hover{ transform: translateY(-1px); }
 .nav-register:active{ transform: translateY(0px); }
 
-.nav-strip{
-  height:10px;
-  background: linear-gradient(90deg, #0b82b7, #22c55e, #f59e0b);
-}
 
 /* HERO */
 .hero{
