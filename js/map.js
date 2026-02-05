@@ -292,25 +292,6 @@ window.RailUI = { show: showRail, hide: hideRails };
 map.on("load", () => {
   ensureRouteLayer();
 
-  // 🚦 Traffic layer (Mapbox)
-map.addSource("mapbox-traffic", {
-  type: "raster",
-  tiles: [
-    `https://api.mapbox.com/v4/mapbox.mapbox-traffic-v1/{z}/{x}/{y}.png?access_token=${mapboxgl.accessToken}`
-  ],
-  tileSize: 256
-});
-
-map.addLayer({
-  id: "traffic-layer",
-  type: "raster",
-  source: "mapbox-traffic",
-  paint: {
-    "raster-opacity": 0.85
-  }
-});
-
-
   if (window.RAIL_LINES) {
     addRailLineLayerHidden(window.RAIL_LINES.lrt1);
     addRailLineLayerHidden(window.RAIL_LINES.lrt2);
