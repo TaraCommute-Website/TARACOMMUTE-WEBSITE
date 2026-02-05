@@ -471,5 +471,180 @@ select{
 #commuteBuddyPanel:not(.cb-hidden) { display: flex !important; }
 #cbBackdrop:not(.cb-hidden) { display: block !important; }
 
+/* ======================================================
+   PANEL-ONLY AURORA (no map tint)
+   Paste at bottom of dashboard.css
+====================================================== */
 
+/* Hide the full-screen aurora layer on dashboard */
+.aurora.aurora--neon{
+  display: none !important;
+}
+
+/* Make sure panels can host overlay layers */
+.panel,
+#commuteBuddyPanel{
+  position: relative;
+  overflow: hidden;
+}
+
+/* Keep actual content above the glow */
+.panel > *,
+#commuteBuddyPanel > *{
+  position: relative;
+  z-index: 1;
+}
+
+/* Shared aurora overlay */
+.panel::before,
+#commuteBuddyPanel::before{
+  content:"";
+  position:absolute;
+  inset:-80px;                 /* bleed for blur */
+  z-index: 0;
+  pointer-events:none;
+
+  opacity: .55;
+  filter: blur(42px) saturate(1.5) contrast(1.1);
+  transform: translateZ(0);
+
+  background:
+  radial-gradient(360px 280px at var(--mx) var(--my),
+    rgba(255,255,255,.92) 0%,
+    rgba(255,255,255,.35) 36%,
+    rgba(255,255,255,0) 72%),
+
+  /* 🔥 Warm red glow */
+  radial-gradient(520px 360px at calc(var(--mx) + 18%) calc(var(--my) - 14%),
+    rgba(255, 60, 60, .40) 0%,
+    rgba(255, 60, 60, 0) 72%),
+
+  /* 🟠 Orange energy */
+  radial-gradient(560px 420px at calc(var(--mx) - 20%) calc(var(--my) + 12%),
+    rgba(255, 140, 0, .38) 0%,
+    rgba(255, 140, 0, 0) 74%),
+
+  /* 💛 Yellow highlight */
+  radial-gradient(520px 380px at 60% 80%,
+    rgba(255, 210, 0, .35) 0%,
+    rgba(255, 210, 0, 0) 70%),
+
+  /* 💖 Keep a touch of pink for balance */
+  radial-gradient(620px 440px at 30% 78%,
+    rgba(255, 0, 140, .28) 0%,
+    rgba(255, 0, 140, 0) 74%),
+
+  /* 💙 Soft blue for contrast */
+  radial-gradient(720px 520px at 72% 22%,
+    rgba(0, 170, 255, .25) 0%,
+    rgba(0, 170, 255, 0) 76%);
+
+}
+
+/* Dark mode: reduce white, keep neon */
+[data-theme="dark"] .panel::before,
+[data-theme="dark"] #commuteBuddyPanel::before{
+  opacity: .35;
+  filter: blur(56px) saturate(1.65) contrast(1.18);
+
+ background:
+
+
+  /* 🔥 Warm red glow */
+  radial-gradient(520px 360px at calc(var(--mx) + 18%) calc(var(--my) - 14%),
+    rgba(255, 60, 60, .40) 0%,
+    rgba(255, 60, 60, 0) 72%),
+
+  /* 🟠 Orange energy */
+  radial-gradient(560px 420px at calc(var(--mx) - 20%) calc(var(--my) + 12%),
+    rgba(255, 140, 0, .38) 0%,
+    rgba(255, 140, 0, 0) 74%),
+
+  /* 💛 Yellow highlight */
+  radial-gradient(520px 380px at 60% 80%,
+    rgba(255, 210, 0, .35) 0%,
+    rgba(255, 210, 0, 0) 70%),
+
+  /* 💖 Keep a touch of pink for balance */
+  radial-gradient(620px 440px at 30% 78%,
+    rgba(255, 0, 140, .28) 0%,
+    rgba(255, 0, 140, 0) 74%),
+
+  /* 💙 Soft blue for contrast */
+  radial-gradient(720px 520px at 72% 22%,
+    rgba(0, 170, 255, .25) 0%,
+    rgba(0, 170, 255, 0) 76%);
+
+
+
+}
+
+/* ======================================================
+   ✅ FINAL OVERRIDES (put at VERY BOTTOM)
+   - Backdrop becomes INVISIBLE (no map tint)
+   - Force AI panel to stay bottom-right
+====================================================== */
+
+/* 1) Backdrop: keep it for "click outside to close" but NO visuals */
+#cbBackdrop{
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 2) FORCE the chat panel position (prevents it jumping left) */
+#commuteBuddyPanel{
+  position: fixed !important;
+  left: auto !important;
+  top: auto !important;
+  right: 20px !important;
+  bottom: 20px !important;
+  margin: 0 !important;
+}
+
+/* 3) FORCE button position too */
+#commuteBuddyBtn{
+  position: fixed !important;
+  right: 50px !important;
+  bottom: 30px !important;
+  left: auto !important;
+  top: auto !important;
+}
+
+
+/* 3) ✅ WARM COMMUTE GRADIENT (matches the new panel aurora) */
+:root{
+  --tcWarm: linear-gradient(90deg,
+    #ff3c3c 0%,
+    #ff8a00 40%,
+    #ffd400 100%);
+}
+
+@keyframes tcWarmMove{
+  0%{ background-position:0% 50%; }
+  50%{ background-position:100% 50%; }
+  100%{ background-position:0% 50%; }
+}
+
+/* Apply warm gradient to AI button + header + send button */
+#commuteBuddyBtn,
+.cb-header,
+#cbSend{
+  background: var(--tcWarm) !important;
+  background-size: 240% 240% !important;
+  animation: tcWarmMove 10s ease infinite !important;
+}
+
+/* Your message bubble (clean brand gradient, readable text) */
+.cb-you{
+  align-self:flex-end;
+  color:#ffffff;
+  border:1px solid rgba(255,255,255,.18);
+
+  background: linear-gradient(135deg, #7c3aed, #1e40af); /* purple → blue */
+  box-shadow: 0 8px 20px rgba(0,0,0,.18);
+}
+[data-theme="dark"] .cb-you{
+  background: linear-gradient(135deg, #8b5cf6, #2563eb);
+}
 
