@@ -1,57 +1,60 @@
 /* =========================
-   TaraCommute – Dashboard CSS
-   Dark mode affects UI panel only.
-   Map stays unchanged (no dark reminders applied to #map).
+   TaraCommute – Dashboard CSS (FULL)
+   - Dark mode affects UI panel + chat only
+   - Map stays unchanged
+   - Commute Buddy: rainbow header + send + bubbles + proper hide rules
+   - Dark scrollbars in dark mode (panel + chat)
    ========================= */
 
-/* Core tokens */
+/* Base tokens */
 :root{
   --brand:#d61f2c;
-  --ink:#0f172a;
-  --muted:#64748b;
-  --line:#e5e7eb;
-  --shadow: 0 20px 60px rgba(2,6,23,.18);
   --radius:18px;
+  --shadow: 0 20px 60px rgba(2,6,23,.18);
 }
 
-/* ===== Theme variables ===== */
+/* Theme variables */
 :root{
-  --bg: #ffffff;
-  --panel: rgba(255,255,255,.92);
-  --text: #111827;
-  --subtle: rgba(17,24,39,.75);
+  --bg:#ffffff;
+  --panel: rgba(255,255,255,.95);
+  --text:#111827;
+  --muted: rgba(17,24,39,.75);
   --border: rgba(17,24,39,.12);
+  --line: rgba(229,231,235,.85);
 
-  --surface: rgba(255,255,255,.75);  /* inputs / cards */
-  --surface2: rgba(17,24,39,.06);    /* tabs / secondary buttons */
+  --inputBg: rgba(255,255,255,.92);
+  --btnBg: rgba(17,24,39,.06);
+
+  --surface: rgba(255,255,255,.75);
+  --surface2: rgba(17,24,39,.06);
   --surfaceHover: rgba(17,24,39,.10);
-  --focusRing: rgba(30,144,255,.18);
-  --shadow: 0 20px 60px rgba(2,6,23,.18);
+  --focusRing: rgba(148,163,184,.25);
 }
 
 [data-theme="dark"]{
-  --bg: #0b1220;
+  --bg:#0b1220;
   --panel: rgba(17,24,39,.92);
-  --text: #e5e7eb;
-  --subtle: rgba(229,231,235,.72);
+  --text:#e5e7eb;
+  --muted: rgba(229,231,235,.72);
   --border: rgba(229,231,235,.14);
+  --line: rgba(229,231,235,.10);
+
+  --inputBg: rgba(255,255,255,.06);
+  --btnBg: rgba(255,255,255,.10);
 
   --surface: rgba(255,255,255,.06);
   --surface2: rgba(255,255,255,.10);
   --surfaceHover: rgba(255,255,255,.14);
   --focusRing: rgba(30,144,255,.20);
+
   --shadow: 0 20px 60px rgba(0,0,0,.45);
 }
 
-/* Global base */
+/* Global */
 *{ box-sizing:border-box; font-family: system-ui, -apple-system, Segoe UI, Arial, sans-serif; }
-body{
-  margin:0;
-  background: var(--bg);
-  color: var(--text);
-}
+body{ margin:0; background: var(--bg); color: var(--text); }
 
-/* Map always unaffected by theme */
+/* Map: never darken */
 #map{ position:absolute; inset:0; }
 #map, #map * { filter:none !important; }
 
@@ -76,29 +79,15 @@ body{
 /* HEADER */
 .panelHeader{
   padding:14px 14px 10px;
-  border-bottom:1px solid var(--border);
+  border-bottom:1px solid var(--line);
   display:flex;
   align-items:flex-start;
   justify-content:space-between;
   gap:10px;
 }
+.title{ font-weight:1000; font-size:18px; margin:0; letter-spacing:-0.01em; color: var(--text); }
+.sub{ color:var(--muted); font-size:12px; margin-top:4px; font-weight:650; }
 
-.title{
-  font-weight:1000;
-  font-size:18px;
-  margin:0;
-  letter-spacing:-0.01em;
-  color: var(--text);
-}
-
-.sub{
-  color: var(--subtle);
-  font-size:12px;
-  margin-top:4px;
-  font-weight:650;
-}
-
-/* Logout button (brand stays) */
 .btnLogout{
   border:0;
   border-radius:999px;
@@ -111,7 +100,7 @@ body{
 }
 .btnLogout:hover{ filter: brightness(1.03); transform: translateY(-1px); }
 
-/* Default button (primary) */
+/* BUTTONS (general) */
 button{
   padding:10px 12px;
   border:0;
@@ -124,17 +113,14 @@ button{
 }
 button:hover{ transform: translateY(-1px); }
 
-/* Secondary buttons respect theme */
 button.secondary,
 .secondary{
-  background: var(--surface2);
+  background: var(--btnBg);
   border: 1px solid var(--border);
   color: var(--text);
 }
 button.secondary:hover,
-.secondary:hover{
-  background: var(--surfaceHover);
-}
+.secondary:hover{ background: var(--surfaceHover); }
 
 /* TABS */
 .tabs{
@@ -142,9 +128,8 @@ button.secondary:hover,
   gap:8px;
   flex-wrap:wrap;
   padding:10px 14px;
-  border-bottom:1px solid var(--border);
+  border-bottom:1px solid var(--line);
 }
-
 .tab{
   border:1px solid var(--border);
   background: var(--surface2);
@@ -157,14 +142,13 @@ button.secondary:hover,
   color: var(--text);
 }
 .tab:hover{ background: var(--surfaceHover); }
-
 .tab.active{
   background: var(--text);
   color: var(--bg);
   border-color: transparent;
 }
 
-/* Rail legend */
+/* Legend */
 .legend{
   display:flex;
   gap:12px;
@@ -178,30 +162,28 @@ button.secondary:hover,
   gap:4px;
   font-weight:600;
 }
-.legend .lrt1{ color:#2563eb; }
-.legend .lrt2{ color:#9333ea; }
-.legend .mrt { color:#facc15; }
+.legend .lrt1 { color: #2563eb; }
+.legend .lrt2 { color: #9333ea; }
+.legend .mrt  { color: #facc15; }
 
-/* SEARCH / CONTROLS */
+/* SEARCH */
 .controls{
   display:flex;
   gap:8px;
   padding:10px 14px;
-  border-bottom:1px solid var(--border);
+  border-bottom:1px solid var(--line);
   align-items:center;
 }
-
 .controls input{
   flex:1;
   padding:10px 12px;
   border-radius:14px;
   border:1px solid var(--border);
   outline:none;
-  background: var(--surface);
+  background: var(--inputBg);
   color: var(--text);
 }
-.controls input::placeholder{ color: var(--subtle); }
-
+.controls input::placeholder{ color: var(--muted); }
 .controls input:focus{
   border-color: rgba(148,163,184,.55);
   box-shadow:0 0 0 4px var(--focusRing);
@@ -218,18 +200,13 @@ select{
   padding:10px 12px;
   border-radius:14px;
   border:1px solid var(--border);
-  background: var(--surface);
+  background: var(--inputBg);
   color: var(--text);
   font-weight:800;
 }
 
 /* META */
-.metaRow{
-  margin-top:8px;
-  color: var(--subtle);
-  font-size:12px;
-  font-weight:650;
-}
+.metaRow{ margin-top:8px; color:var(--muted); font-size:12px; font-weight:650; }
 
 /* DEPARTURES */
 .departure{
@@ -237,10 +214,9 @@ select{
   justify-content:space-between;
   align-items:center;
   padding:10px 0;
-  border-top:1px solid var(--border);
+  border-top:1px solid var(--line);
 }
 .left{ display:flex; align-items:flex-start; gap:10px; }
-
 .badge{
   padding:4px 10px;
   border-radius:999px;
@@ -249,9 +225,8 @@ select{
   white-space:nowrap;
   font-weight:1000;
 }
-
 .destination{ font-weight:1000; color: var(--text); }
-.small{ font-size:12px; color: var(--subtle); margin-top:3px; font-weight:650; }
+.small{ font-size:12px; color:var(--muted); margin-top:3px; font-weight:650; }
 .minutes{ font-weight:1000; color: var(--text); }
 
 /* MOBILE */
@@ -260,15 +235,24 @@ select{
   .panelHeader{ align-items:center; }
 }
 
-/* ============================= */
-/* 🌈 Commute Buddy (UI + Bubbles) */
-/* ============================= */
+/* =============================
+   🌈 Commute Buddy (Rainbow UI + Bubbles)
+   ============================= */
 
-/* Button (lower-right, lifted to avoid Mapbox controls) */
+@keyframes cbRainbow{
+  0%{ background-position:0% 50%; }
+  50%{ background-position:100% 50%; }
+  100%{ background-position:0% 50%; }
+}
+:root{
+  --cbRainbow: linear-gradient(90deg,#ff004c,#ff7a00,#ffd400,#33d17a,#1e90ff,#7c3aed,#ff3bd4);
+}
+
+/* Button (lower-right; moved up to avoid Mapbox controls) */
 #commuteBuddyBtn{
   position:absolute;
   right:50px;
-  bottom:30px; /* avoids Mapbox zoom controls */
+  bottom:30px;
   z-index:999;
 
   padding:12px 18px;
@@ -278,26 +262,13 @@ select{
   font-weight:900;
   color:#fff;
 
-  background: linear-gradient(90deg,
-    #ff004c, #ff7a00, #ffd400, #33d17a, #1e90ff, #7c3aed, #ff3bd4);
-  background-size: 300% 300%;
+  background: var(--cbRainbow);
+  background-size:300% 300%;
   animation: cbRainbow 8s ease infinite;
 
   box-shadow:0 10px 25px rgba(0,0,0,.25);
 }
 #commuteBuddyBtn:hover{ transform: translateY(-1px); }
-
-@keyframes cbRainbow{
-  0%{ background-position:0% 50%; }
-  50%{ background-position:100% 50%; }
-  100%{ background-position:0% 50%; }
-}
-
-/* Visibility rules (prevents auto-show / specificity bugs) */
-#commuteBuddyPanel.cb-hidden{ display:none !important; }
-#cbBackdrop.cb-hidden{ display:none !important; }
-#commuteBuddyPanel:not(.cb-hidden){ display:flex !important; }
-#cbBackdrop:not(.cb-hidden){ display:block !important; }
 
 /* Backdrop */
 #cbBackdrop{
@@ -312,27 +283,27 @@ select{
   position:fixed;
   right:20px;
   bottom:20px;
-  width:min(360px, calc(100vw - 40px));
-  height:460px;
+  width:min(380px, calc(100vw - 40px));
+  height:480px;
 
-  background: rgba(255,255,255,.92);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(15,23,42,.12);
+  background: var(--panel);
+  border: 1px solid var(--border);
   border-radius:18px;
-  box-shadow:0 20px 60px rgba(2,6,23,.20);
+  box-shadow: var(--shadow);
   overflow:hidden;
 
+  display:flex;
   flex-direction:column;
   z-index:1000;
 }
 
-/* Make panel match theme */
-[data-theme="dark"] #commuteBuddyPanel{
-  background: rgba(17,24,39,.92);
-  border: 1px solid rgba(229,231,235,.14);
-}
+/* ✅ Hide/show rules that won’t get overridden */
+#commuteBuddyPanel.cb-hidden{ display:none !important; }
+#cbBackdrop.cb-hidden{ display:none !important; }
+#commuteBuddyPanel:not(.cb-hidden){ display:flex !important; }
+#cbBackdrop:not(.cb-hidden){ display:block !important; }
 
-/* Header with rainbow gradient */
+/* Header (rainbow) */
 .cb-header{
   padding:12px 14px;
   color:#fff;
@@ -340,9 +311,8 @@ select{
   align-items:center;
   justify-content:space-between;
 
-  background: linear-gradient(90deg,
-    #ff004c, #ff7a00, #ffd400, #33d17a, #1e90ff, #7c3aed, #ff3bd4);
-  background-size: 300% 300%;
+  background: var(--cbRainbow);
+  background-size:300% 300%;
   animation: cbRainbow 8s ease infinite;
 }
 .cb-header span{ font-weight:1000; letter-spacing:-.01em; }
@@ -384,33 +354,28 @@ select{
 /* Buddy bubble (left) */
 .cb-buddy{
   align-self:flex-start;
-  background: rgba(255,255,255,.95);
-  border:1px solid rgba(15,23,42,.10);
+  background: var(--surface);
+  border:1px solid var(--border);
   color: var(--text);
 }
-[data-theme="dark"] .cb-buddy{
-  background: rgba(255,255,255,.06);
-  border:1px solid rgba(229,231,235,.14);
-}
 
-/* You bubble (right) */
+/* You bubble (right, rainbow) */
 .cb-you{
   align-self:flex-end;
   color:#fff;
   border:1px solid rgba(255,255,255,.22);
 
-  background: linear-gradient(90deg,
-    #ff004c, #ff7a00, #ffd400, #33d17a, #1e90ff, #7c3aed, #ff3bd4);
-  background-size: 300% 300%;
+  background: var(--cbRainbow);
+  background-size:300% 300%;
   animation: cbRainbow 8s ease infinite;
 }
 
-/* Small label under bubble */
+/* Label under bubble */
 .cb-meta{
   margin-top:6px;
   font-size:11px;
   opacity:.72;
-  color: var(--subtle);
+  color: var(--muted);
 }
 
 /* Input area */
@@ -418,28 +383,23 @@ select{
   display:flex;
   gap:10px;
   padding:12px;
-  border-top:1px solid rgba(15,23,42,.10);
-  background: rgba(255,255,255,.88);
+  border-top:1px solid var(--line);
+  background: rgba(255,255,255,.70);
 }
 [data-theme="dark"] .cb-input-area{
-  border-top:1px solid rgba(229,231,235,.14);
-  background: rgba(17,24,39,.88);
+  background: rgba(17,24,39,.75);
 }
 
 .cb-input-area input{
   flex:1;
   border-radius:999px;
-  border:1px solid rgba(15,23,42,.14);
+  border:1px solid var(--border);
   padding:10px 12px;
   outline:none;
-  background: rgba(255,255,255,.98);
+  background: var(--inputBg);
   color: var(--text);
 }
-[data-theme="dark"] .cb-input-area input{
-  border:1px solid rgba(229,231,235,.14);
-  background: rgba(255,255,255,.06);
-}
-
+.cb-input-area input::placeholder{ color: var(--muted); }
 .cb-input-area input:focus{
   border-color: rgba(30,144,255,.55);
   box-shadow: 0 0 0 4px var(--focusRing);
@@ -454,14 +414,42 @@ select{
   font-weight:1000;
   cursor:pointer;
 
-  background: linear-gradient(90deg,
-    #ff004c, #ff7a00, #ffd400, #33d17a, #1e90ff, #7c3aed, #ff3bd4);
-  background-size: 300% 300%;
+  background: var(--cbRainbow);
+  background-size:300% 300%;
   animation: cbRainbow 8s ease infinite;
 
   box-shadow:0 10px 22px rgba(0,0,0,.18);
 }
 #cbSend:hover{ transform: translateY(-1px); }
+
+/* =============================
+   🌙 Dark-mode scrollbars (panel + chat + everything)
+   ============================= */
+
+/* Firefox */
+[data-theme="dark"]{
+  scrollbar-color: rgba(255,255,255,.28) rgba(255,255,255,.08);
+  scrollbar-width: thin;
+}
+
+/* Chrome/Edge/Safari */
+[data-theme="dark"] ::-webkit-scrollbar{
+  width:10px;
+  height:10px;
+}
+[data-theme="dark"] ::-webkit-scrollbar-track{
+  background: rgba(255,255,255,.06);
+  border-radius: 10px;
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,.28);
+  border-radius: 999px;
+  border:2px solid transparent;
+  background-clip: content-box;
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover{
+  background: rgba(255,255,255,.40);
+}
 
 
 
