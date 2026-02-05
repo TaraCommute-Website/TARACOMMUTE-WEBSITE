@@ -1,3 +1,10 @@
+/* =========================
+   TaraCommute – Dashboard CSS
+   Dark mode affects UI panel only.
+   Map stays unchanged (no dark reminders applied to #map).
+   ========================= */
+
+/* Core tokens */
 :root{
   --brand:#d61f2c;
   --ink:#0f172a;
@@ -8,58 +15,45 @@
 }
 
 /* ===== Theme variables ===== */
-:root {
+:root{
   --bg: #ffffff;
-  --panel: rgba(255, 255, 255, 0.92);
+  --panel: rgba(255,255,255,.92);
   --text: #111827;
-  --muted: rgba(17, 24, 39, 0.75);
-  --border: rgba(17, 24, 39, 0.15);
-  --inputBg: #ffffff;
-  --btnBg: rgba(17, 24, 39, 0.06);
+  --subtle: rgba(17,24,39,.75);
+  --border: rgba(17,24,39,.12);
+
+  --surface: rgba(255,255,255,.75);  /* inputs / cards */
+  --surface2: rgba(17,24,39,.06);    /* tabs / secondary buttons */
+  --surfaceHover: rgba(17,24,39,.10);
+  --focusRing: rgba(30,144,255,.18);
+  --shadow: 0 20px 60px rgba(2,6,23,.18);
 }
 
-[data-theme="dark"] {
+[data-theme="dark"]{
   --bg: #0b1220;
-  --panel: rgba(17, 24, 39, 0.90);
+  --panel: rgba(17,24,39,.92);
   --text: #e5e7eb;
-  --muted: rgba(229, 231, 235, 0.75);
-  --border: rgba(229, 231, 235, 0.15);
-  --inputBg: rgba(255, 255, 255, 0.06);
-  --btnBg: rgba(255, 255, 255, 0.10);
+  --subtle: rgba(229,231,235,.72);
+  --border: rgba(229,231,235,.14);
+
+  --surface: rgba(255,255,255,.06);
+  --surface2: rgba(255,255,255,.10);
+  --surfaceHover: rgba(255,255,255,.14);
+  --focusRing: rgba(30,144,255,.20);
+  --shadow: 0 20px 60px rgba(0,0,0,.45);
 }
 
-/* Apply variables */
-body {
+/* Global base */
+*{ box-sizing:border-box; font-family: system-ui, -apple-system, Segoe UI, Arial, sans-serif; }
+body{
+  margin:0;
   background: var(--bg);
   color: var(--text);
 }
 
-.panel {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  color: var(--text);
-}
-
-.sub, .muted, #sessionLabel {
-  color: var(--muted);
-}
-
-.controls input {
-  background: var(--inputBg);
-  border: 1px solid var(--border);
-  color: var(--text);
-}
-
-.secondary {
-  background: var(--btnBg);
-  border: 1px solid var(--border);
-  color: var(--text);
-}
-
-
-*{ box-sizing:border-box; font-family: system-ui, -apple-system, Segoe UI, Arial, sans-serif; }
-body{ margin:0; }
+/* Map always unaffected by theme */
 #map{ position:absolute; inset:0; }
+#map, #map * { filter:none !important; }
 
 /* PANEL */
 .panel{
@@ -67,11 +61,13 @@ body{ margin:0; }
   left:12px; top:12px;
   width:min(540px, calc(100vw - 24px));
   max-height: calc(100vh - 24px);
-  background: rgba(255,255,255,.95);
-  border: 1px solid rgba(255,255,255,.55);
+
+  background: var(--panel);
+  border: 1px solid var(--border);
   backdrop-filter: blur(10px);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+
   overflow:hidden;
   display:flex;
   flex-direction:column;
@@ -80,15 +76,29 @@ body{ margin:0; }
 /* HEADER */
 .panelHeader{
   padding:14px 14px 10px;
-  border-bottom:1px solid rgba(229,231,235,.8);
+  border-bottom:1px solid var(--border);
   display:flex;
   align-items:flex-start;
   justify-content:space-between;
   gap:10px;
 }
-.title{ font-weight:1000; font-size:18px; margin:0; letter-spacing:-0.01em; }
-.sub{ color:var(--muted); font-size:12px; margin-top:4px; font-weight:650; }
 
+.title{
+  font-weight:1000;
+  font-size:18px;
+  margin:0;
+  letter-spacing:-0.01em;
+  color: var(--text);
+}
+
+.sub{
+  color: var(--subtle);
+  font-size:12px;
+  margin-top:4px;
+  font-weight:650;
+}
+
+/* Logout button (brand stays) */
 .btnLogout{
   border:0;
   border-radius:999px;
@@ -101,85 +111,125 @@ body{ margin:0; }
 }
 .btnLogout:hover{ filter: brightness(1.03); transform: translateY(-1px); }
 
+/* Default button (primary) */
+button{
+  padding:10px 12px;
+  border:0;
+  border-radius:14px;
+  background: var(--text);
+  color: var(--bg);
+  cursor:pointer;
+  font-size:12px;
+  font-weight:1000;
+}
+button:hover{ transform: translateY(-1px); }
+
+/* Secondary buttons respect theme */
+button.secondary,
+.secondary{
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+button.secondary:hover,
+.secondary:hover{
+  background: var(--surfaceHover);
+}
+
 /* TABS */
 .tabs{
   display:flex;
   gap:8px;
   flex-wrap:wrap;
   padding:10px 14px;
-  border-bottom:1px solid rgba(229,231,235,.8);
+  border-bottom:1px solid var(--border);
 }
+
 .tab{
-  border:1px solid #e5e7eb;
-  background:#f8fafc;
+  border:1px solid var(--border);
+  background: var(--surface2);
   padding:8px 12px;
   border-radius:999px;
   cursor:pointer;
   font-size:12px;
   user-select:none;
   font-weight:900;
+  color: var(--text);
 }
-.tab:hover{ background:#eef2f7; }
+.tab:hover{ background: var(--surfaceHover); }
+
 .tab.active{
-  background:#0b1220;
-  color:#fff;
-  border-color:#0b1220;
+  background: var(--text);
+  color: var(--bg);
+  border-color: transparent;
 }
 
-/* SEARCH */
+/* Rail legend */
+.legend{
+  display:flex;
+  gap:12px;
+  font-size:13px;
+  margin-top:6px;
+  padding: 0 14px 10px;
+}
+.legend span{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  font-weight:600;
+}
+.legend .lrt1{ color:#2563eb; }
+.legend .lrt2{ color:#9333ea; }
+.legend .mrt { color:#facc15; }
+
+/* SEARCH / CONTROLS */
 .controls{
   display:flex;
   gap:8px;
   padding:10px 14px;
-  border-bottom:1px solid rgba(229,231,235,.8);
+  border-bottom:1px solid var(--border);
   align-items:center;
 }
+
 .controls input{
   flex:1;
   padding:10px 12px;
   border-radius:14px;
-  border:1px solid #dbe2ea;
+  border:1px solid var(--border);
   outline:none;
+  background: var(--surface);
+  color: var(--text);
 }
-.controls input:focus{
-  border-color:#94a3b8;
-  box-shadow:0 0 0 4px rgba(148,163,184,.25);
-}
+.controls input::placeholder{ color: var(--subtle); }
 
-button{
-  padding:10px 12px;
-  border:0;
-  border-radius:14px;
-  background:#0b1220;
-  color:#fff;
-  cursor:pointer;
-  font-size:12px;
-  font-weight:1000;
+.controls input:focus{
+  border-color: rgba(148,163,184,.55);
+  box-shadow:0 0 0 4px var(--focusRing);
 }
-button:hover{ transform: translateY(-1px); }
-button.secondary{
-  background:#f1f5f9;
-  color:#0b1220;
-}
-button.secondary:hover{ background:#e9eef5; }
 
 /* BOARD AREA */
 #boardContainer{ flex:1; overflow:auto; }
 .board{ padding:12px 14px 14px; }
 
-.boardTitle{ font-weight:1000; margin-bottom:10px; }
+.boardTitle{ font-weight:1000; margin-bottom:10px; color: var(--text); }
 .boardControls{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
 
 select{
   padding:10px 12px;
   border-radius:14px;
-  border:1px solid #dbe2ea;
-  background:#fff;
+  border:1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
   font-weight:800;
 }
 
 /* META */
-.metaRow{ margin-top:8px; color:var(--muted); font-size:12px; font-weight:650; }
+.metaRow{
+  margin-top:8px;
+  color: var(--subtle);
+  font-size:12px;
+  font-weight:650;
+}
 
 /* DEPARTURES */
 .departure{
@@ -187,9 +237,10 @@ select{
   justify-content:space-between;
   align-items:center;
   padding:10px 0;
-  border-top:1px solid rgba(229,231,235,.9);
+  border-top:1px solid var(--border);
 }
 .left{ display:flex; align-items:flex-start; gap:10px; }
+
 .badge{
   padding:4px 10px;
   border-radius:999px;
@@ -198,9 +249,10 @@ select{
   white-space:nowrap;
   font-weight:1000;
 }
-.destination{ font-weight:1000; }
-.small{ font-size:12px; color:var(--muted); margin-top:3px; font-weight:650; }
-.minutes{ font-weight:1000; }
+
+.destination{ font-weight:1000; color: var(--text); }
+.small{ font-size:12px; color: var(--subtle); margin-top:3px; font-weight:650; }
+.minutes{ font-weight:1000; color: var(--text); }
 
 /* MOBILE */
 @media (max-width: 420px){
@@ -208,29 +260,15 @@ select{
   .panelHeader{ align-items:center; }
 }
 
-.legend {
-  display: flex;
-  gap: 12px;
-  font-size: 13px;
-  margin-top: 6px;
-}
+/* ============================= */
+/* 🌈 Commute Buddy (UI + Bubbles) */
+/* ============================= */
 
-.legend span {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-weight: 600;
-}
-
-.legend .lrt1 { color: #2563eb; }
-.legend .lrt2 { color: #9333ea; }
-.legend .mrt  { color: #facc15; }
-
-/* 🌈 Rainbow Commute Buddy Button (lower-right) */
+/* Button (lower-right, lifted to avoid Mapbox controls) */
 #commuteBuddyBtn{
   position:absolute;
   right:50px;
-  bottom: 30px; /* avoids Mapbox controls */
+  bottom:30px; /* avoids Mapbox zoom controls */
   z-index:999;
 
   padding:12px 18px;
@@ -247,16 +285,15 @@ select{
 
   box-shadow:0 10px 25px rgba(0,0,0,.25);
 }
-
 #commuteBuddyBtn:hover{ transform: translateY(-1px); }
 
 @keyframes cbRainbow{
-  0%{ background-position:0% 50%;}
-  50%{ background-position:100% 50%;}
-  100%{ background-position:0% 50%;}
+  0%{ background-position:0% 50%; }
+  50%{ background-position:100% 50%; }
+  100%{ background-position:0% 50%; }
 }
 
-/* Panel visibility (prevents auto-show / specificity bugs) */
+/* Visibility rules (prevents auto-show / specificity bugs) */
 #commuteBuddyPanel.cb-hidden{ display:none !important; }
 #cbBackdrop.cb-hidden{ display:none !important; }
 #commuteBuddyPanel:not(.cb-hidden){ display:flex !important; }
@@ -273,18 +310,26 @@ select{
 /* Panel */
 #commuteBuddyPanel{
   position:fixed;
-  right:50px;
-  bottom:30px;
+  right:20px;
+  bottom:20px;
   width:min(360px, calc(100vw - 40px));
   height:460px;
+
   background: rgba(255,255,255,.92);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(15,23,42,.12);
   border-radius:18px;
   box-shadow:0 20px 60px rgba(2,6,23,.20);
   overflow:hidden;
+
   flex-direction:column;
   z-index:1000;
+}
+
+/* Make panel match theme */
+[data-theme="dark"] #commuteBuddyPanel{
+  background: rgba(17,24,39,.92);
+  border: 1px solid rgba(229,231,235,.14);
 }
 
 /* Header with rainbow gradient */
@@ -300,11 +345,7 @@ select{
   background-size: 300% 300%;
   animation: cbRainbow 8s ease infinite;
 }
-
-.cb-header span{
-  font-weight:1000;
-  letter-spacing:-.01em;
-}
+.cb-header span{ font-weight:1000; letter-spacing:-.01em; }
 
 #cbClose{
   width:38px;
@@ -316,7 +357,6 @@ select{
   cursor:pointer;
   font-weight:1000;
 }
-
 #cbClose:hover{ filter: brightness(1.05); }
 
 /* Messages area */
@@ -331,7 +371,7 @@ select{
 
 /* Bubble base */
 .cb-bubble{
-  max-width: 82%;
+  max-width:82%;
   padding:10px 12px;
   border-radius:14px;
   line-height:1.35;
@@ -346,7 +386,11 @@ select{
   align-self:flex-start;
   background: rgba(255,255,255,.95);
   border:1px solid rgba(15,23,42,.10);
-  color: var(--text, #111827);
+  color: var(--text);
+}
+[data-theme="dark"] .cb-buddy{
+  background: rgba(255,255,255,.06);
+  border:1px solid rgba(229,231,235,.14);
 }
 
 /* You bubble (right) */
@@ -366,6 +410,7 @@ select{
   margin-top:6px;
   font-size:11px;
   opacity:.72;
+  color: var(--subtle);
 }
 
 /* Input area */
@@ -376,6 +421,10 @@ select{
   border-top:1px solid rgba(15,23,42,.10);
   background: rgba(255,255,255,.88);
 }
+[data-theme="dark"] .cb-input-area{
+  border-top:1px solid rgba(229,231,235,.14);
+  background: rgba(17,24,39,.88);
+}
 
 .cb-input-area input{
   flex:1;
@@ -384,11 +433,16 @@ select{
   padding:10px 12px;
   outline:none;
   background: rgba(255,255,255,.98);
+  color: var(--text);
+}
+[data-theme="dark"] .cb-input-area input{
+  border:1px solid rgba(229,231,235,.14);
+  background: rgba(255,255,255,.06);
 }
 
 .cb-input-area input:focus{
   border-color: rgba(30,144,255,.55);
-  box-shadow: 0 0 0 4px rgba(30,144,255,.18);
+  box-shadow: 0 0 0 4px var(--focusRing);
 }
 
 /* Send button (rainbow) */
@@ -407,8 +461,8 @@ select{
 
   box-shadow:0 10px 22px rgba(0,0,0,.18);
 }
-
 #cbSend:hover{ transform: translateY(-1px); }
+
 
 
 /* ✅ HARD OVERRIDE: hide when cb-hidden is present */
