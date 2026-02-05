@@ -327,17 +327,3 @@ map.addLayer({
 
   console.log("✅ Mapbox loaded successfully");
 });
-
-let trafficOn = true;
-
-const trafficBtn = document.getElementById("toggleTraffic");
-if (trafficBtn) {
-  trafficBtn.onclick = () => {
-    trafficOn = !trafficOn;
-    map.setLayoutProperty(
-      "traffic-layer",
-      "visibility",
-      trafficOn ? "visible" : "none"
-    );
-  };
-}
