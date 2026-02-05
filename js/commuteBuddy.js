@@ -96,10 +96,10 @@ function escapeHtml(str) {
 window.CommuteBuddy = {};
 
 window.CommuteBuddy.gemini = async function(userText) {
-  const API_KEY = "AIzaSyBrrEq6mH5AusVzJBPrsbSrtBL2h2kxxXo";
+  const API_KEY = "AIzaSyDo-4r9N-xQJtnm8hJSh8ZQXS8W0u_u1TA";
 
   const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
