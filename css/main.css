@@ -79,10 +79,13 @@ body{ margin:0; background:var(--bg); color:var(--ink); }
   padding:56px 16px 66px;
   display:flex;
   justify-content:center;
+  position:relative;
 }
 .hero-inner{
   width:min(980px, 100%);
   text-align:center;
+  position:relative;
+  z-index:1;
 }
 .hero-inner h1{
   margin:0;
@@ -356,4 +359,96 @@ body{ margin:0; background:var(--bg); color:var(--ink); }
   gap:10px;
   flex-wrap:wrap;
 }
+
+/* =========================
+   DARK MODE THEME
+========================= */
+:root[data-theme="dark"]{
+  --ink:#e5e7eb;
+  --muted:#a1a1aa;
+  --bg:#0b1220;
+  --card:#0f172a;
+  --line: rgba(148,163,184,.18);
+  --shadow: 0 18px 50px rgba(0,0,0,.45);
+  --shadow2: 0 10px 24px rgba(0,0,0,.35);
+}
+
+/* =========================
+   DARK MODE THEME
+========================= */
+:root[data-theme="dark"]{
+  --ink:#e5e7eb;
+  --muted:#a1a1aa;
+  --bg:#0b1220;
+  --card:#0f172a;
+  --line: rgba(148,163,184,.18);
+  --shadow: 0 18px 50px rgba(0,0,0,.45);
+  --shadow2: 0 10px 24px rgba(0,0,0,.35);
+}
+
+/* Auto adapt cards to dark mode */
+:root[data-theme="dark"] .card,
+:root[data-theme="dark"] .qs,
+:root[data-theme="dark"] .fcard,
+:root[data-theme="dark"] .step,
+:root[data-theme="dark"] .modal{
+  background: var(--card);
+  border-color: var(--line);
+}
+
+:root[data-theme="dark"] .ticker,
+:root[data-theme="dark"] .weather{
+  background:#111827;
+  color:var(--ink);
+}
+
+/* =========================
+   THEME TOGGLE BUTTON
+========================= */
+.theme-toggle{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:999;
+
+  width:52px;
+  height:52px;
+  border-radius:999px;
+
+  border:1px solid var(--line);
+  background:var(--card);
+  color:var(--ink);
+
+  display:grid;
+  place-items:center;
+
+  box-shadow: var(--shadow2);
+  cursor:pointer;
+  transition:.2s;
+}
+
+.theme-toggle:hover{ transform:translateY(-2px); }
+.theme-toggle:active{ transform:translateY(0); }
+
+#themeIcon{ font-size:20px; }
+
+/* =========================
+   DARK MODE FIX FOR CTA BUTTONS
+   (keeps your current light mode unchanged)
+========================= */
+:root[data-theme="dark"] .btn{
+  background:#e5e7eb;     /* light button */
+  color:#0b1220;          /* dark text */
+  box-shadow: 0 12px 30px rgba(0,0,0,.35);
+}
+
+:root[data-theme="dark"] .btn.ghost{
+  background:transparent; /* keep ghost style */
+  border:2px solid #e5e7eb;
+  color:#e5e7eb;
+  box-shadow:none;
+}
+
+
+
 
