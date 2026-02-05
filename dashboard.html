@@ -157,5 +157,30 @@
   <script src="js/boards/lrt2Board.js"></script>
   <script src="js/boards/mrtBoard.js"></script>
   <script src="js/boards/app.js"></script>
+
+  <!-- 🤖 Commute Buddy Button (floats beside map) -->
+<button id="commuteBuddyBtn" title="Talk to Commute Buddy">
+  🤖 Commute Buddy
+</button>
+
+<!-- Commute Buddy Chat Panel -->
+<div id="commuteBuddyPanel" class="cb-hidden">
+  <div class="cb-header">
+    <span>Commute Buddy</span>
+    <button id="cbClose">✕</button>
+  </div>
+
+  <div id="cbMessages" class="cb-messages"></div>
+
+  <div class="cb-input-area">
+    <input type="text" id="cbInput" placeholder="Ask about routes, traffic, commute tips..." />
+    <button id="cbSend">Send</button>
+  </div>
+</div>
+
+<div id="cbBackdrop" class="cb-hidden"></div>
+
+<script src="js/commuteBuddy.js"></script>
+
 </body>
 </html>
