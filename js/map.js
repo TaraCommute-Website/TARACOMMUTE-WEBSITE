@@ -1,8 +1,21 @@
+// Verify map container exists
+if (!document.getElementById("map")) {
+  console.error("❌ Map container #map not found!");
+}
+
 const map = new mapboxgl.Map({
   container: "map",
   style: "mapbox://styles/mapbox/streets-v11",
   center: [120.9842, 14.5995],
   zoom: 11
+});
+
+map.on('load', () => {
+  console.log("✅ Map loaded successfully");
+});
+
+map.on('error', (e) => {
+  console.error("❌ Map error:", e);
 });
 
 map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
