@@ -640,20 +640,18 @@ body > *{
 .btn#signupBtn2,
 .btn#getStartedBtn{
   background: linear-gradient(90deg,
-    #ff3c3c 0%,   /* red */
-    #ff7a00 12%,  /* orange */
-    #ffd400 24%,  /* yellow */
-    #33d17a 40%,  /* green */
-    #1e90ff 58%,  /* blue */
-    #7c3aed 76%,  /* purple */
-    #ff3bd4 92%   /* pink */
-  ) !important;
-
-  background-size: 300% 300% !important;
-  animation: cbRainbow 10s ease infinite !important;
-
-  color: #ffffff !important;
-  border: 0 !important;
+    #ff3c3c 0%,
+    #ff7a00 12%,
+    #ffd400 24%,
+    #33d17a 40%,
+    #1e90ff 58%,
+    #7c3aed 76%,
+    #ff3bd4 92%
+  );
+  background-size: 300% 300%;
+  animation: cbRainbow 10s ease infinite;
+  color: #ffffff;
+  border: 0;
   box-shadow: 0 12px 28px rgba(0,0,0,.18);
 }
 
@@ -689,6 +687,3 @@ header.nav .nav-login:hover{
   background: rgba(255,255,255,.10); /* subtle glass look */
   border: 1px solid rgba(255,255,255,.18);
 }
-
-
-

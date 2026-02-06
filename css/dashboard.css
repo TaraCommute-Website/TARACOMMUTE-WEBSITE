@@ -277,7 +277,7 @@ select{
 
   background: var(--rainbow);
   background-size:300% 300%;
-  animation: rainbowShift 8s ease infinite;
+  animation: rainbowShift 10s linear infinite;
 
   box-shadow:0 10px 25px rgba(0,0,0,.25);
 }
@@ -326,7 +326,7 @@ select{
 
   background: var(--rainbow);
   background-size:300% 300%;
-  animation: rainbowShift 8s ease infinite;
+  animation: rainbowShift 10s linear infinite;
 }
 .cb-header span{ font-weight:1000; letter-spacing:-.01em; }
 
@@ -380,7 +380,8 @@ select{
 
   background: var(--rainbow);
   background-size:300% 300%;
-  animation: rainbowShift 8s ease infinite;
+  animation: rainbowShift 5s linear infinite;
+
 }
 
 /* Label under bubble */
@@ -429,7 +430,7 @@ select{
 
   background: var(--rainbow);
   background-size:300% 300%;
-  animation: rainbowShift 8s ease infinite;
+  animation: rainbowShift 10s linear infinite;
 
   box-shadow:0 10px 22px rgba(0,0,0,.18);
 }
@@ -619,5 +620,3 @@ select{
 [data-theme="dark"] .cb-you{
   filter: brightness(1.08) saturate(1.05);
 }
-
-
