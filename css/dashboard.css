@@ -104,11 +104,14 @@ body{ margin:0; background: var(--bg); color: var(--text); }
   border:0;
   border-radius:999px;
   padding:10px 14px;
-  background: var(--brand);
+  background: var(--rainbow);
+  background-size:300% 300%;
+  animation: rainbowShift 8s ease infinite;
   color:#fff;
   cursor:pointer;
   font-weight:1000;
   white-space:nowrap;
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
 }
 .btnLogout:hover{ filter: brightness(1.03); transform: translateY(-1px); }
 
@@ -249,13 +252,13 @@ select{
    🌈 Commute Buddy (Rainbow UI + Bubbles)
    ============================= */
 
-@keyframes cbRainbow{
+@keyframes rainbowShift{
   0%{ background-position:0% 50%; }
   50%{ background-position:100% 50%; }
   100%{ background-position:0% 50%; }
 }
 :root{
-  --cbRainbow: linear-gradient(90deg,#ff004c,#ff7a00,#ffd400,#33d17a,#1e90ff,#7c3aed,#ff3bd4);
+  --rainbow: linear-gradient(90deg,#ff3c3c,#ff7a00,#ffd400,#33d17a,#1e90ff,#7c3aed,#ff3bd4);
 }
 
 /* Button (lower-right; moved up to avoid Mapbox controls) */
@@ -272,9 +275,9 @@ select{
   font-weight:900;
   color:#fff;
 
-  background: var(--cbRainbow);
+  background: var(--rainbow);
   background-size:300% 300%;
-  animation: cbRainbow 8s ease infinite;
+  animation: rainbowShift 8s ease infinite;
 
   box-shadow:0 10px 25px rgba(0,0,0,.25);
 }
@@ -321,9 +324,9 @@ select{
   align-items:center;
   justify-content:space-between;
 
-  background: var(--cbRainbow);
+  background: var(--rainbow);
   background-size:300% 300%;
-  animation: cbRainbow 8s ease infinite;
+  animation: rainbowShift 8s ease infinite;
 }
 .cb-header span{ font-weight:1000; letter-spacing:-.01em; }
 
@@ -375,9 +378,9 @@ select{
   color:#fff;
   border:1px solid rgba(255,255,255,.22);
 
-  background: var(--cbRainbow);
+  background: var(--rainbow);
   background-size:300% 300%;
-  animation: cbRainbow 8s ease infinite;
+  animation: rainbowShift 8s ease infinite;
 }
 
 /* Label under bubble */
@@ -424,9 +427,9 @@ select{
   font-weight:1000;
   cursor:pointer;
 
-  background: var(--cbRainbow);
+  background: var(--rainbow);
   background-size:300% 300%;
-  animation: cbRainbow 8s ease infinite;
+  animation: rainbowShift 8s ease infinite;
 
   box-shadow:0 10px 22px rgba(0,0,0,.18);
 }
@@ -612,39 +615,9 @@ select{
 }
 
 
-/* 3) ✅ WARM COMMUTE GRADIENT (matches the new panel aurora) */
-:root{
-  --tcWarm: linear-gradient(90deg,
-    #ff3c3c 0%,
-    #ff8a00 40%,
-    #ffd400 100%);
-}
-
-@keyframes tcWarmMove{
-  0%{ background-position:0% 50%; }
-  50%{ background-position:100% 50%; }
-  100%{ background-position:0% 50%; }
-}
-
-/* Apply warm gradient to AI button + header + send button */
-#commuteBuddyBtn,
-.cb-header,
-#cbSend{
-  background: var(--tcWarm) !important;
-  background-size: 240% 240% !important;
-  animation: tcWarmMove 10s ease infinite !important;
-}
-
-/* Your message bubble (clean brand gradient, readable text) */
-.cb-you{
-  align-self:flex-end;
-  color:#ffffff;
-  border:1px solid rgba(255,255,255,.18);
-
-  background: linear-gradient(135deg, #7c3aed, #1e40af); /* purple → blue */
-  box-shadow: 0 8px 20px rgba(0,0,0,.18);
-}
+/* Dark mode keeps animation but slightly brighter */
 [data-theme="dark"] .cb-you{
-  background: linear-gradient(135deg, #8b5cf6, #2563eb);
+  filter: brightness(1.08) saturate(1.05);
 }
+
 
