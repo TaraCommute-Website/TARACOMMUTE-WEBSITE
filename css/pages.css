@@ -570,7 +570,15 @@ body > *{
 
 /* register becomes neon gradient pill (matches hero glow) */
 .nav-register{
-  background: linear-gradient(90deg, #ff2bd6, #7c3aed, #1e90ff, #22c55e);
+  background: linear-gradient(90deg,
+    #ff3c3c 0%,     /* NEW red */
+    #ff7a00 12%,    /* NEW orange */
+    #ffd400 24%,    /* NEW yellow */
+    #33d17a 40%,    /* green */
+    #1e90ff 58%,    /* blue */
+    #7c3aed 76%,    /* purple */
+    #ff3bd4 92%     /* pink */
+  );
   background-size: 300% 300%;
   animation: cbRainbow 10s ease infinite;
   border: 0;

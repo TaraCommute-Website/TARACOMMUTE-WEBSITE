@@ -639,13 +639,29 @@ body > *{
 }
 
 /* register becomes neon gradient pill (matches hero glow) */
-.nav-register{
-  background: linear-gradient(90deg, #ff2bd6, #7c3aed, #1e90ff, #22c55e);
-  background-size: 300% 300%;
-  animation: cbRainbow 10s ease infinite;
-  border: 0;
+/* 🌈 Warm + Neon Gradient Buttons (FIXED) */
+.nav-register,
+.btn#signupBtn,
+.btn#signupBtn2,
+.btn#getStartedBtn{
+  background: linear-gradient(90deg,
+    #ff3c3c 0%,   /* red */
+    #ff7a00 12%,  /* orange */
+    #ffd400 24%,  /* yellow */
+    #33d17a 40%,  /* green */
+    #1e90ff 58%,  /* blue */
+    #7c3aed 76%,  /* purple */
+    #ff3bd4 92%   /* pink */
+  ) !important;
+
+  background-size: 300% 300% !important;
+  animation: cbRainbow 10s ease infinite !important;
+
+  color: #ffffff !important;
+  border: 0 !important;
   box-shadow: 0 12px 28px rgba(0,0,0,.18);
 }
+
 
 /* ===== FORCE navbar links to be visible on light backgrounds ===== */
 header.nav .nav-link,
@@ -672,7 +688,12 @@ header.nav .nav-login:hover{
   background: rgba(255,255,255,.12) !important;
 }
 
-
+/* 🌙 Make hero badge text white in dark mode */
+:root[data-theme="dark"] .badge{
+  color: #ffffff !important;
+  background: rgba(255,255,255,.10); /* subtle glass look */
+  border: 1px solid rgba(255,255,255,.18);
+}
 
 
 
