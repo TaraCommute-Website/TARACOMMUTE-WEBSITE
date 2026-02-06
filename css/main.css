@@ -508,68 +508,63 @@ body > *{
   animation: auroraBreathe 12s ease-in-out infinite;
 
   background:
-    /* Bright white “spotlight” near cursor */
-    radial-gradient(520px 420px at var(--mx) var(--my),
-      rgba(255,255,255,.95) 0%,
-      rgba(255,255,255,.55) 30%,
-      rgba(255,255,255,0) 68%),
+    /* 🔥 Warm red glow */
+  radial-gradient(520px 360px at calc(var(--mx) + 18%) calc(var(--my) - 14%),
+    rgba(255, 60, 60, .40) 0%,
+    rgba(255, 60, 60, 0) 72%),
 
-    /* Neon pink */
-    radial-gradient(700px 520px at calc(var(--mx) + 18%) calc(var(--my) - 14%),
-      rgba(255, 0, 140, .75) 0%,
-      rgba(255, 0, 140, 0) 70%),
+  /* 🟠 Orange energy */
+  radial-gradient(560px 420px at calc(var(--mx) - 20%) calc(var(--my) + 12%),
+    rgba(255, 140, 0, .38) 0%,
+    rgba(255, 140, 0, 0) 74%),
 
-    /* Neon blue */
-    radial-gradient(760px 560px at calc(var(--mx) - 22%) calc(var(--my) + 12%),
-      rgba(0, 170, 255, .70) 0%,
-      rgba(0, 170, 255, 0) 72%),
+  /* 💛 Yellow highlight */
+  radial-gradient(520px 380px at 60% 80%,
+    rgba(255, 210, 0, .35) 0%,
+    rgba(255, 210, 0, 0) 70%),
 
-    /* Neon green */
-    radial-gradient(820px 560px at 30% 76%,
-      rgba(0, 255, 170, .55) 0%,
-      rgba(0, 255, 170, 0) 72%),
+  /* 💖 Keep a touch of pink for balance */
+  radial-gradient(620px 440px at 30% 78%,
+    rgba(255, 0, 140, .28) 0%,
+    rgba(255, 0, 140, 0) 74%),
 
-    /* Neon purple */
-    radial-gradient(920px 640px at 72% 22%,
-      rgba(160, 80, 255, .55) 0%,
-      rgba(160, 80, 255, 0) 74%),
+  /* 💙 Soft blue for contrast */
+  radial-gradient(720px 520px at 72% 22%,
+    rgba(0, 170, 255, .25) 0%,
+    rgba(0, 170, 255, 0) 76%);
 
-    /* Soft white base wash (keeps it bright + clean) */
-    linear-gradient(120deg,
-      rgba(255,255,255,.70),
-      rgba(255,255,255,.35),
-      rgba(255,255,255,.60));
+
 }
 
 /* Dark mode: reduce white, keep neon glow */
 :root[data-theme="dark"] .aurora.aurora--neon{
   background:
-    radial-gradient(540px 440px at var(--mx) var(--my),
-      rgba(255,255,255,.55) 0%,
-      rgba(255,255,255,.22) 34%,
-      rgba(255,255,255,0) 70%),
+    /* 🔥 Warm red glow */
+  radial-gradient(520px 360px at calc(var(--mx) + 18%) calc(var(--my) - 14%),
+    rgba(255, 60, 60, .40) 0%,
+    rgba(255, 60, 60, 0) 72%),
 
-    radial-gradient(700px 520px at calc(var(--mx) + 18%) calc(var(--my) - 14%),
-      rgba(255, 0, 140, .55) 0%,
-      rgba(255, 0, 140, 0) 70%),
+  /* 🟠 Orange energy */
+  radial-gradient(560px 420px at calc(var(--mx) - 20%) calc(var(--my) + 12%),
+    rgba(255, 140, 0, .38) 0%,
+    rgba(255, 140, 0, 0) 74%),
 
-    radial-gradient(760px 560px at calc(var(--mx) - 22%) calc(var(--my) + 12%),
-      rgba(0, 170, 255, .55) 0%,
-      rgba(0, 170, 255, 0) 72%),
+  /* 💛 Yellow highlight */
+  radial-gradient(520px 380px at 60% 80%,
+    rgba(255, 210, 0, .35) 0%,
+    rgba(255, 210, 0, 0) 70%),
 
-    radial-gradient(820px 560px at 30% 76%,
-      rgba(0, 255, 170, .38) 0%,
-      rgba(0, 255, 170, 0) 72%),
+  /* 💖 Keep a touch of pink for balance */
+  radial-gradient(620px 440px at 30% 78%,
+    rgba(255, 0, 140, .28) 0%,
+    rgba(255, 0, 140, 0) 74%),
 
-    radial-gradient(920px 640px at 72% 22%,
-      rgba(160, 80, 255, .42) 0%,
-      rgba(160, 80, 255, 0) 74%),
+  /* 💙 Soft blue for contrast */
+  radial-gradient(720px 520px at 72% 22%,
+    rgba(0, 170, 255, .25) 0%,
+    rgba(0, 170, 255, 0) 76%);
 
-    /* Dark base wash */
-    linear-gradient(120deg,
-      rgba(255,255,255,.08),
-      rgba(255,255,255,.02),
-      rgba(255,255,255,.06));
+
 }
 
 /* Gentle “breathing” motion */
